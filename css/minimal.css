@@ -1,22 +1,46 @@
-/* Minimal modern layer — loads after theme CSS */
+/* Minimal modern layer — "tranquil retreat" palette (unified, calm, minimal) */
 
 :root {
-    --color-bg: #fafaf9;
-    --color-bg-elevated: #ffffff;
-    --color-bg-muted: #f5f5f4;
-    --color-text: #1c1917;
-    --color-text-muted: #57534e;
-    --color-border: #e7e5e4;
-    --color-accent: #44403c;
-    --color-accent-soft: rgba(68, 64, 60, 0.12);
-    --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+    /* —— base swatches —— */
+    --palette-ivory: #f0ede4;
+    --palette-sand: #d4bea6;
+    --palette-slate: #4a666e;
+    --palette-moss: #36483c;
+    --palette-lavender: #9c7f95;
+    --palette-sage: #a7b9a3;
+
+    /* —— semantic tokens (use these in rules) —— */
+    --color-bg: var(--palette-ivory);
+    /* Cards / pills on ivory: a hair brighter than the page for subtle lift */
+    --color-bg-elevated: #f6f3ea;
+    --color-bg-muted: var(--palette-sand);
+    --color-text: var(--palette-slate);
+    /* Muted body: readable without going cold / black */
+    --color-text-muted: #5d6f74;
+    --color-border: rgba(167, 185, 163, 0.45);
+    --color-border-solid: #c0cfc0;
+    /* Links, gentle emphasis; hover deepens via moss in rules */
+    --color-accent: var(--palette-lavender);
+    --color-accent-dark: var(--palette-moss);
+    --color-on-dark: var(--palette-ivory);
+    --color-overlay: rgba(54, 72, 60, 0.5);
+
+    --font-sans: "Roboto", system-ui, -apple-system, sans-serif;
+    --font-heading: "Outfit", "DM Sans", system-ui, sans-serif;
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
-    --shadow-soft: 0 1px 2px rgba(28, 25, 23, 0.04);
-    --shadow-card: 0 4px 24px rgba(28, 25, 23, 0.06);
+    --shadow-soft: 0 1px 2px rgba(54, 72, 60, 0.05);
+    --shadow-card: 0 4px 22px rgba(54, 72, 60, 0.07);
     --content-max: 68rem;
     --header-h: 56px;
+}
+
+/* Legacy section classes in HTML → same palette (sand banding) */
+.gray-bg,
+.another-green-bg,
+.gray-purple-bg {
+    background-color: var(--color-bg-muted) !important;
 }
 
 *,
@@ -54,6 +78,7 @@ body {
 
 body.wow-animate {
     overflow-x: hidden;
+    overflow-y: visible;
 }
 
 section[id] {
@@ -96,6 +121,8 @@ section[id] {
     top: 0;
     left: 0;
     right: 0;
+    z-index: 2000;
+    min-height: var(--header-h);
     height: var(--header-h);
     text-align: center;
     background: transparent;
@@ -106,16 +133,16 @@ section[id] {
 .header.header-prepare {
     position: fixed;
     top: 0;
-    background: rgba(250, 250, 249, 0.88);
-    backdrop-filter: saturate(1.2) blur(12px);
-    -webkit-backdrop-filter: saturate(1.2) blur(12px);
-    border-bottom: 1px solid var(--color-border);
+    background: color-mix(in srgb, var(--palette-ivory) 90%, transparent);
+    backdrop-filter: saturate(1.1) blur(12px);
+    -webkit-backdrop-filter: saturate(1.1) blur(12px);
+    border-bottom: 1px solid var(--color-border-solid);
     box-shadow: var(--shadow-soft);
 }
 
 .header.header-prepare .nav-menu ul.nav-menu-inner > li > a,
 .header.header-fixed .nav-menu ul.nav-menu-inner > li > a {
-    color: rgba(28, 25, 23, 0.55);
+    color: color-mix(in srgb, var(--palette-slate) 65%, transparent);
     padding-top: 18px;
     padding-bottom: 18px;
 }
@@ -149,6 +176,11 @@ section[id] {
 }
 
 @media (max-width: 1024px) {
+    /* Let the bar grow to fit the open menu; fixed height was clipping the dropdown */
+    .header {
+        height: auto;
+    }
+
     .header-inner-minimal {
         flex-wrap: wrap;
         justify-content: flex-end;
@@ -160,15 +192,22 @@ section[id] {
     .header-inner-minimal .nav-menu {
         order: 2;
         flex: 1 1 100%;
-        background: rgba(28, 25, 23, 0.97) !important;
+        background: var(--color-accent-dark) !important;
         border-radius: var(--radius-sm);
         margin-top: 8px;
-        overflow: hidden;
+    }
+
+    /* Theme JS sets max-height; keep vertical scroll if the list is tall */
+    .header-inner-minimal .nav-menu.active {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        /* Safety: theme used to set max-height from full header height and starve the panel */
+        max-height: min(85vh, 36rem) !important;
     }
 
     .header-inner-minimal .nav-menu ul.nav-menu-inner > li > a {
-        border-top-color: rgba(255, 255, 255, 0.08) !important;
-        color: rgba(255, 255, 255, 0.85);
+        border-top-color: color-mix(in srgb, var(--color-on-dark) 12%, transparent) !important;
+        color: color-mix(in srgb, var(--color-on-dark) 90%, transparent);
     }
 
     .header-inner-minimal .nav-mobile {
@@ -178,16 +217,22 @@ section[id] {
         margin-bottom: 0;
     }
 
+    .header.header-prepare .nav-bar-icon > span,
+    .header.header-prepare .nav-bar-icon > span::before,
+    .header.header-prepare .nav-bar-icon > span::after,
+    .header.header-fixed .nav-bar-icon > span,
+    .header.header-fixed .nav-bar-icon > span::before,
+    .header.header-fixed .nav-bar-icon > span::after,
     .nav-bar-icon > span,
     .nav-bar-icon > span::before,
     .nav-bar-icon > span::after {
-        background-color: var(--color-text) !important;
+        background-color: var(--palette-slate) !important;
     }
 
     .header:not(.header-prepare):not(.header-fixed) .nav-bar-icon > span,
     .header:not(.header-prepare):not(.header-fixed) .nav-bar-icon > span::before,
     .header:not(.header-prepare):not(.header-fixed) .nav-bar-icon > span::after {
-        background-color: #fff !important;
+        background-color: var(--color-on-dark) !important;
     }
 }
 
@@ -200,7 +245,7 @@ section[id] {
 }
 
 #intro .overlay-dark40::before {
-    background-color: rgba(28, 25, 23, 0.52);
+    background-color: var(--color-overlay);
 }
 
 #intro .js-fullscreen-height {
@@ -267,6 +312,26 @@ section[id] {
     border-color: rgba(255, 255, 255, 0.7);
 }
 
+/* One CTA size across hero, About (CV), and contact form */
+#intro a.btn.btn-lg,
+#about button.btn-color.btn-lg,
+#about .btn-color.btn-lg,
+#contact-form .btn.btn-lg.btn-black,
+#contact-form .btn-black.btn-lg {
+    min-height: 2.875rem;
+    padding: 0.7rem 1.85rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    border-radius: 999px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
 /* Sections */
 .section-padding {
     padding-top: clamp(3.5rem, 8vw, 5.5rem);
@@ -277,15 +342,11 @@ section[id] {
     max-width: var(--content-max) !important;
 }
 
-.gray-bg {
-    background-color: var(--color-bg-muted) !important;
-}
-
 .tab-heading {
-    font-family: var(--font-sans);
+    font-family: var(--font-heading);
     font-size: clamp(1.35rem, 3vw, 1.65rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-weight: 400;
+    letter-spacing: -0.04em;
     color: var(--color-text);
     margin-bottom: 0.5rem;
 }
@@ -319,39 +380,49 @@ section[id] {
 }
 
 .lead-about a:hover {
-    color: var(--color-text);
+    color: var(--color-accent-dark);
 }
 
-/* About */
+/* About — larger photo column so image balances long copy */
 #about .tab-heading.text-center {
     margin-bottom: 0;
 }
 
 .about-split {
     display: grid;
-    gap: clamp(1.5rem, 4vw, 2.5rem);
+    gap: clamp(1.75rem, 4vw, 3rem);
     align-items: start;
     text-align: left;
-    margin-top: 2rem;
+    margin-top: 2.25rem;
 }
 
 .about-copy .lead-about {
     max-width: none;
     margin-bottom: 0;
+    font-weight: 400;
+    color: var(--color-text-muted);
 }
 
 @media (min-width: 768px) {
     .about-split {
-        grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
-        align-items: center;
+        /* ~40% image / 60% copy — was 220px max, which felt tiny next to the text */
+        grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1.25fr);
+        align-items: start;
+    }
+}
+
+@media (min-width: 1100px) {
+    .about-split {
+        grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
     }
 }
 
 .about-photo {
     border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-solid);
     box-shadow: var(--shadow-card);
     width: 100%;
-    max-width: 280px;
+    max-width: min(22rem, 100%);
     height: auto;
     object-fit: cover;
     aspect-ratio: 3 / 4;
@@ -360,92 +431,174 @@ section[id] {
 
 @media (min-width: 768px) {
     .about-photo {
-        justify-self: start;
-        max-width: 100%;
+        justify-self: stretch;
+        max-width: none;
+        width: 100%;
     }
 }
 
 #about .btn-color {
-    background: var(--color-text);
+    background: var(--color-accent-dark);
     border: none;
-    color: #fff;
-    border-radius: 999px;
-    padding: 0.65rem 1.35rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    color: var(--color-on-dark);
+    transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow-soft);
 }
 
 #about .btn-color:hover {
-    opacity: 0.88;
+    opacity: 0.92;
     transform: translateY(-1px);
+    box-shadow: var(--shadow-card);
 }
 
 #about .about-copy form {
     margin-top: 1.5rem;
 }
 
-/* Education tabs */
-.icon-tab-nav.tabs {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    padding: 0;
-    margin: 1.5rem auto 0;
+/* Education + Achievements — pill tab lists (overrides theme 200px li + 44px icon on `a`) */
+#education .pill-tab-list,
+#achievements .pill-tab-list {
     list-style: none;
+    margin: 1.5rem auto 0;
+    padding: 0;
+    display: grid !important;
+    gap: 0.75rem;
+    max-width: 100%;
+    width: 100%;
     border: none;
+    /* Theme clearfix: ::before/::after on ul become grid items and break column math */
+    justify-items: stretch;
+    align-items: stretch;
 }
 
-.icon-tab-nav.tabs li {
-    margin: 0;
+#education .pill-tab-list::before,
+#education .pill-tab-list::after,
+#achievements .pill-tab-list::before,
+#achievements .pill-tab-list::after {
+    content: none !important;
+    display: none !important;
 }
 
-.icon-tab-nav.tabs a {
-    display: block;
-    padding: 0.55rem 1.1rem;
-    border-radius: 999px;
-    border: 1px solid var(--color-border);
-    background: var(--color-bg-elevated);
-    text-decoration: none;
-    transition: border-color 0.2s ease, background 0.2s ease;
+#education .pill-tab-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    max-width: 36rem;
 }
 
-.icon-tab-nav.tabs a.active,
-.icon-tab-nav.tabs a:hover {
-    border-color: var(--color-text);
-    background: var(--color-text);
-    color: #fff;
+#achievements .pill-tab-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    max-width: 42rem;
 }
 
-.icon-tab-nav.tabs a.active .icon-tab-nav-title,
-.icon-tab-nav.tabs a:hover .icon-tab-nav-title {
-    color: inherit !important;
+@media (min-width: 640px) {
+    #achievements .pill-tab-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
 }
 
-.icon-tab-nav-title {
+#education .pill-tab-list > li,
+#achievements .pill-tab-list > li {
+    display: flex !important;
+    width: auto !important;
+    min-width: 0;
     margin: 0 !important;
-    font-size: 0.8rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.04em;
+    padding: 0;
 }
 
-#education .tab-pane,
-#education .container:last-of-type {
+#education .pill-tab-list a,
+#achievements .pill-tab-list a {
+    box-sizing: border-box;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 3.5rem;
+    height: 100%;
+    margin: 0;
+    padding: 0.65rem 0.75rem;
+    /* Kill theme’s 44px “icon” size on the anchor; label text is on the inner span */
+    font-size: 0 !important;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none !important;
+    color: var(--color-text);
+    background: var(--color-bg-elevated) !important;
+    border: 1px solid var(--color-border-solid) !important;
+    border-radius: 9999px;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+    /* override theme: ul.icon-tab-nav li a.active */
+    box-shadow: none;
+}
+
+#education .pill-tab-list a:hover,
+#achievements .pill-tab-list a:hover {
+    border-color: var(--color-accent) !important;
+    color: var(--color-accent-dark);
+    background: color-mix(in srgb, var(--palette-sage) 20%, var(--palette-ivory)) !important;
+}
+
+#education .pill-tab-list a.active,
+#achievements .pill-tab-list a.active {
+    border-color: var(--color-accent-dark) !important;
+    background: var(--color-accent-dark) !important;
+    color: var(--color-on-dark) !important;
+}
+
+#education .pill-tab-list a:focus-visible,
+#achievements .pill-tab-list a:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+}
+
+#education .pill-tab-list .icon-tab-nav-title,
+#achievements .pill-tab-list .icon-tab-nav-title {
+    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.6875rem !important; /* 11px */
+    font-weight: 500 !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase;
+    color: inherit !important;
+    font-style: normal;
+    white-space: normal;
+}
+
+#education .pill-tab-list a.active .icon-tab-nav-title,
+#achievements .pill-tab-list a.active .icon-tab-nav-title {
+    color: var(--color-on-dark) !important;
+}
+
+/* Education body: center column, left-aligned type for reading */
+#education .education-content {
     max-width: 42rem;
     margin-left: auto;
     margin-right: auto;
+    text-align: left;
+}
+
+#education .tab-pane h4,
+#education .tab-pane p,
+#education .tab-pane h6 {
+    text-align: left;
 }
 
 /* Skills / tech strip */
+#skills .tech-group {
+    margin-bottom: 1.75rem;
+}
+
+#skills {
+    background-color: var(--color-bg);
+}
+
 #skills.pos-section .page-triangle {
     display: none;
 }
 
 #skills.overlay-light::before {
-    background-color: rgba(250, 250, 249, 0.92);
+    background-color: color-mix(in srgb, var(--palette-ivory) 88%, var(--palette-sage) 12%);
 }
 
 .tech-group h6 {
@@ -456,11 +609,15 @@ section[id] {
 }
 
 .tech-pill {
-    border-color: var(--color-border);
+    display: inline-block;
+    padding: 6px 14px;
+    margin: 4px 6px 4px 0;
+    border: 1px solid var(--color-border-solid);
     color: var(--color-text);
     background: var(--color-bg-elevated);
     border-radius: 999px;
     font-size: 13px;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
 .tech-pill:hover {
@@ -469,76 +626,84 @@ section[id] {
 }
 
 .tech-pill.primary {
-    background: var(--color-text);
-    color: #fafaf9;
-    border-color: var(--color-text);
+    background: var(--color-accent-dark);
+    color: var(--color-on-dark);
+    border-color: var(--color-accent-dark);
 }
 
-/* Experience cards */
-.history-box {
+/* Experience + Projects — shared card UI (section background differs) */
+#experience .history-box,
+#projects .project-card {
     background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-border-solid);
     border-radius: var(--radius-md);
-    padding: 1.35rem 1.5rem;
     box-shadow: var(--shadow-soft);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    transition: box-shadow 0.2s ease;
 }
 
-.history-year {
-    font-size: 11px !important;
-    letter-spacing: 0.12em;
-    color: var(--color-text-muted) !important;
-    font-weight: 600 !important;
-}
-
-.history-title {
-    color: var(--color-text) !important;
-    font-size: 1.1rem !important;
-    font-weight: 600 !important;
-    margin-top: 0.35rem;
-}
-
-/* Project cards */
-.project-card {
-    border: 1px solid var(--color-border);
-    border-left: 3px solid var(--color-accent);
-    border-radius: var(--radius-md);
-    background: var(--color-bg-elevated);
-    box-shadow: var(--shadow-soft);
-}
-
-.project-card:hover {
+#experience .history-box:hover,
+#projects .project-card:hover {
     box-shadow: var(--shadow-card);
 }
 
-.project-period {
-    background: var(--color-text) !important;
-    border-radius: 999px;
-    letter-spacing: 0.1em;
-    font-size: 10px;
+/* Period chip — matches across both sections */
+#experience .history-year,
+#projects .project-period {
+    display: inline-block;
+    margin: 0 0 0.65rem 0;
     padding: 0.35rem 0.75rem;
+    background: var(--color-accent-dark) !important;
+    color: var(--color-on-dark) !important;
+    border-radius: 999px;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    text-transform: uppercase;
 }
 
-.project-card h4 {
-    color: var(--color-text);
+/* Titles + body */
+#experience .history-title,
+#projects .project-card h4 {
+    color: var(--color-text) !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    line-height: 1.35;
+    margin: 0 0 0.75rem 0;
 }
 
-.project-desc {
-    color: var(--color-text-muted);
+/* Experience cards + project cards: same body copy (beats theme’s thin Roboto on .lead-about) */
+#projects .project-card .project-desc,
+#experience .history-box p.lead-about,
+#experience .history-box p.lead-about.history-content {
+    font-family: var(--font-sans) !important;
+    font-weight: 400 !important;
+    color: var(--color-text-muted) !important;
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+    margin: 0;
+    max-width: none;
 }
 
 /* Achievements */
-#achievements .icon-tab-nav.tabs {
-    margin-bottom: 0.5rem;
+#achievements .achievements-content.mt-45 {
+    text-align: left;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#achievements .icon-tab-nav i {
-    display: none;
+#achievements .achievements-content.mt-45 > .achievements-content {
+    text-align: left;
 }
 
-.achievements-pane {
+#achievements .achievements-pane {
     max-width: 42rem;
     margin: 0 auto;
     padding: 1.5rem 0;
+    text-align: left;
 }
 
 /* Contact strip */
@@ -548,19 +713,27 @@ section[id] {
     border-top: 1px solid var(--color-border);
 }
 
+/* Contact strip: p.large was Roboto 100 from theme — unreadable on sand */
+#contact-me .contact-info p,
+#contact-me p.large,
 #contact-me .contact-info .large {
-    color: var(--color-text);
-    font-size: 1rem;
+    font-family: var(--font-sans) !important;
+    font-weight: 500 !important;
+    color: var(--color-text) !important;
+    font-size: 1.05rem !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.01em;
+    margin-bottom: 0;
 }
 
 #contact-me .alt-icon-color {
-    color: var(--color-accent);
+    color: var(--color-accent-dark) !important;
 }
 
 /* Contact form — no heavy photo bg */
 #contact-form.bg-image {
     background-image: none !important;
-    background-color: var(--color-text) !important;
+    background-color: var(--color-accent-dark) !important;
 }
 
 #contact-form.overlay-dark::before {
@@ -569,31 +742,25 @@ section[id] {
 
 #contact-form .tab-heading,
 #contact-form .lead-lg {
-    color: rgba(255, 255, 255, 0.95) !important;
+    color: color-mix(in srgb, var(--color-on-dark) 95%, white) !important;
 }
 
 #contact-form .input-fancy {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(240, 237, 228, 0.1);
+    border: 1px solid rgba(240, 237, 228, 0.2);
     border-radius: var(--radius-sm);
-    color: #fff;
+    color: var(--color-on-dark);
 }
 
 #contact-form .input-fancy::placeholder {
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(240, 237, 228, 0.45);
 }
 
-#contact-form .btn-black {
-    background: #fff;
-    color: var(--color-text);
-    border: none;
-    border-radius: 999px;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-size: 0.75rem;
+#contact-form .btn.btn-lg.btn-black,
+#contact-form .btn-black.btn-lg {
+    background: var(--color-on-dark) !important;
+    color: var(--color-accent-dark) !important;
+    border: none !important;
 }
 
 #contact-form .btn-black:hover {
@@ -619,8 +786,8 @@ section[id] {
 }
 
 .footer .social li a:hover {
-    color: var(--color-text);
-    border-color: var(--color-text);
+    color: var(--color-accent-dark);
+    border-color: var(--color-accent);
     background: var(--color-bg-elevated);
 }
 
@@ -632,18 +799,26 @@ section[id] {
 
 /* AI callout */
 .ai-callout {
-    background: var(--color-bg-muted);
-    border-left: 3px solid var(--color-accent);
+    background: color-mix(in srgb, var(--palette-ivory) 65%, var(--palette-sand) 35%);
+    border: 1px solid var(--color-border-solid);
     border-radius: var(--radius-md);
+    padding: 1.5rem 1.75rem;
+    margin-top: 1.75rem;
 }
 
 .ai-callout h5 {
     letter-spacing: 0.12em;
     font-size: 11px;
-    color: var(--color-text-muted);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
 }
 
 .ai-callout p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
     color: var(--color-text-muted);
 }
 

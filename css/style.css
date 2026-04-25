@@ -101,6 +101,18 @@ body {
     background-color: #f6f6f6;
 }
 
+.green-bg {
+    background-color: #D3D8CA;
+}
+
+.gray-purple-bg {
+    background-color: #b8afc0;
+}
+
+.another-green-bg {
+    background-color: #D8DBD2;
+}
+
 .black-bg {
     background-color: #121212;
 }

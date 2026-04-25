@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="henrike">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#fafaf9">
+    <meta name="theme-color" content="#f0ede4">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="apple-touch-icon" href="img/favicon.png">
@@ -18,109 +18,11 @@
     <link href="css/plugins/animate.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/jquery.animatedheadline.css">
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Outfit:wght@300;400;500&display=swap"
         rel="stylesheet">
 
-    <!-- Inline styles for the tech-stack grid and project cards -->
     <style>
-        .tech-group {
-            margin-bottom: 30px;
-        }
-
-        .tech-group h6 {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #836E6D;
-            margin-bottom: 14px;
-            font-weight: 600;
-            font-size: 12px;
-        }
-
-        .tech-pill {
-            display: inline-block;
-            padding: 6px 14px;
-            margin: 4px 6px 4px 0;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #333;
-            background: #fff;
-            transition: all 0.2s ease;
-        }
-
-        .tech-pill:hover {
-            border-color: #836E6D;
-            color: #836E6D;
-        }
-
-        .tech-pill.primary {
-            background: #222;
-            color: #fff;
-            border-color: #222;
-        }
-
-        .ai-callout {
-            background: linear-gradient(135deg, #f8f6f3 0%, #ede7e1 100%);
-            border-left: 4px solid #836E6D;
-            padding: 25px 30px;
-            margin-top: 30px;
-            border-radius: 4px;
-        }
-
-        .ai-callout h5 {
-            color: #222;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 13px;
-        }
-
-        .ai-callout p {
-            margin-bottom: 0;
-            color: #555;
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .project-card {
-            padding: 28px 30px;
-            margin-bottom: 25px;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            border-right: 1px solid #eee;
-            border-left: 5px solid #836E6D;
-            transition: all 0.2s ease;
-            background: #fff;
-        }
-
-        .project-card:hover {
-            box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.08);
-        }
-
-        .project-card .project-period {
-            background: #836E6D;
-            color: #fff;
-            padding: 4px 10px;
-            display: inline-block;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .project-card h4 {
-            margin-bottom: 12px;
-            color: #222;
-        }
-
-        .project-card .project-desc {
-            color: #555;
-            line-height: 1.7;
-            margin-bottom: 14px;
-            font-size: 15px;
-        }
-
-        .project-card .project-tech .tech-pill {
+        #projects .project-card .project-tech .tech-pill {
             font-size: 11px;
             padding: 3px 10px;
             margin: 3px 4px 3px 0;
@@ -136,7 +38,7 @@
     </div>
     <header id="header" class="header">
         <div class="header-inner header-inner-minimal">
-            <div class="nav-menu singlepage-nav">
+            <div class="nav-menu singlepage-nav" id="primary-nav">
                 <ul class="nav-menu-inner">
                     <li>
                         <a class="current" href="#intro">Home</a>
@@ -155,7 +57,8 @@
                     </li>
                 </ul>
             </div>
-            <button type="button" class="nav-mobile nav-bar-icon" aria-label="Open navigation menu">
+            <button type="button" class="nav-mobile nav-bar-icon" aria-label="Menu"
+                aria-controls="primary-nav" aria-expanded="false">
                 <span></span>
             </button>
         </div>
@@ -210,7 +113,7 @@
                         team today.
                     </p>
                     <form method="get" action="Henrike_Nel_CV.pdf">
-                        <button class="btn btn-color btn-md mt-20" type="submit">Download CV</button>
+                        <button class="btn btn-color btn-lg mt-20" type="submit">Download CV</button>
                     </form>
                 </div>
             </div>
@@ -222,22 +125,23 @@
         <div class="container text-center">
             <h1 class="tab-heading">Education</h1>
         </div>
-        <div class="container">
-            <ul class="icon-tab-nav tabs" data-tabgroup="tab-group">
-                <li>
-                    <a href="#secondary" class="active">
-                        <h5 class="icon-tab-nav-title alt-title">Secondary Education</h5>
+        <div class="container text-center">
+            <ul class="icon-tab-nav tabs pill-tab-list" data-tabgroup="tab-group" role="tablist"
+                aria-label="Education level">
+                <li role="none">
+                    <a href="#secondary" class="active" role="tab" aria-selected="true">
+                        <span class="icon-tab-nav-title">Secondary Education</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#tertiary">
-                        <h5 class="icon-tab-nav-title alt-title">Tertiary Education</h5>
+                <li role="none">
+                    <a href="#tertiary" role="tab" aria-selected="false">
+                        <span class="icon-tab-nav-title">Tertiary Education</span>
                     </a>
                 </li>
             </ul>
         </div>
 
-        <div class="container">
+        <div class="container education-content">
             <br />
             <div class="tab-pane" id="secondary-content" style="display: block;">
                 <!-- Secondary education content -->
@@ -276,7 +180,7 @@
         </div>
     </section>
 
-    <section id="skills" class="section-padding pos-section gray-bg bg-image overlay-light"
+    <section id="skills" class="section-padding pos-section bg-image overlay-light"
         data-stellar-background-ratio="0.4">
         <div class="page-triangle white-bg"></div>
         <div class="container">
@@ -353,7 +257,7 @@
     </section>
 
 
-    <section id="experience" class="section-padding">
+    <section id="experience" class="section-padding another-green-bg">
         <div class="container text-center">
             <h1 class="tab-heading">My Experience</h1>
         </div>
@@ -407,7 +311,7 @@
                         <h4 class="alt-title history-title">Freelance</h4>
                         <p class="lead-about history-content">
                             I created this website, experimenting with
-                            web-developement.
+                            web-development.
                         </p>
                     </div>
                     <div class="history-box mb-30">
@@ -440,7 +344,7 @@
         </div>
     </section>
 
-    <section id="projects" class="section-padding gray-bg">
+    <section id="projects" class="section-padding">
         <div class="container text-center">
             <h1 class="tab-heading">Featured Projects</h1>
             <p class="prog-skills" style="max-width: 760px; margin: 0 auto 40px;">
@@ -462,6 +366,7 @@
                             hand-off, refund processing, and customer communications - driving solution design, defining
                             service contracts, aligning integration timelines across multiple teams, and leading
                             architectural decision-making for a revenue-critical domain.
+                            <br><br>
                         </p>
                         <div class="project-tech">
                             <span class="tech-pill primary">Engineering Project Lead</span>
@@ -481,6 +386,7 @@
                             parcel tracking at scale. I designed the event-handler architecture, implemented a type-safe
                             domain model, and shipped rollout and event-correction tooling that gives engineers a
                             user-friendly way to quickly and safely recover from upstream data issues.
+                            <br><br>
                         </p>
                         <div class="project-tech">
                             <span class="tech-pill">Go</span>
@@ -500,6 +406,7 @@
                             pipelines. I designed the parcel state schema, implemented signal-driven event handlers,
                             integrated with warehouse logistics APIs, and orchestrated a feature-flagged rollout that
                             ran legacy and new pipelines in parallel for a safe, zero-downtime cutover.
+                            <br><br>
                         </p>
                         <div class="project-tech">
                             <span class="tech-pill">Go</span>
@@ -524,6 +431,7 @@
                             <br><br>
                             Additionally, I built self-service tooling that lets Customer Support resolve customer
                             queries independently, eliminating routine engineering escalations.
+                            <br><br>
                         </p>
                         <div class="project-tech">
                             <span class="tech-pill primary">Retool</span>
@@ -544,6 +452,7 @@
                             with comprehensive audit logging and tooling that lets engineers and ops trace exactly when
                             and which communications were sent - turning a previously opaque pipeline into a debuggable,
                             observable system.
+                            <br><br>
                         </p>
                         <div class="project-tech">
                             <span class="tech-pill">Go</span>
@@ -564,6 +473,7 @@
                             <b>Retool</b>-based "medic" toolkit (app) that lets engineers solve edge-case issues, like
                             editing and replaying problematic Kafka messages with full audit trails - significantly
                             reducing incident recovery time while preserving accountability and reporting integrity.
+                            <br><br>
                         </p>
                         <div class="project-tech">
                             <span class="tech-pill">Go</span>
@@ -585,30 +495,27 @@
             <h1 class="tab-heading">Achievements</h1>
         </div>
         <div class="p-b-30"></div>
-        <div class="container">
-            <ul class="icon-tab-nav tabs" data-tabgroup="tab-group">
-                <li>
-                    <a href="#academic" class="icon-tab-nav li a">
-                        <i class="icon-genius"></i>
-                        <h5 class="icon-tab-nav-title alt-title">Academics</h5>
+        <div class="container text-center">
+            <ul class="icon-tab-nav tabs pill-tab-list" data-tabgroup="tab-group" role="tablist"
+                aria-label="Achievement categories">
+                <li role="none">
+                    <a href="#academic" class="active" role="tab" aria-selected="true">
+                        <span class="icon-tab-nav-title">Academics</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#acting" class="icon-tab-nav li a">
-                        <i class="icon-quote"></i>
-                        <h5 class="icon-tab-nav-title alt-title">Acting</h5>
+                <li role="none">
+                    <a href="#acting" role="tab" aria-selected="false">
+                        <span class="icon-tab-nav-title">Acting</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#public_speaking" class="icon-tab-nav li a">
-                        <i class="icon-megaphone"></i>
-                        <h5 class="icon-tab-nav-title alt-title">Public Speaking</h5>
+                <li role="none">
+                    <a href="#public_speaking" role="tab" aria-selected="false">
+                        <span class="icon-tab-nav-title">Public Speaking</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#leadership" class="icon-tab-nav li a">
-                        <i class="icon-trophy"></i>
-                        <h5 class="icon-tab-nav-title alt-title">Leadership</h5>
+                <li role="none">
+                    <a href="#leadership" role="tab" aria-selected="false">
+                        <span class="icon-tab-nav-title">Leadership</span>
                     </a>
                 </li>
             </ul>
@@ -624,7 +531,7 @@
                     </div>
                 </div>
                 <div class="achievements-content">
-                    <div class="achievements-pane" id="acting-content">
+                    <div class="achievements-pane" id="acting-content" style="display: none;">
                         <h4 class="lead-lg">
                             <b>Scholarship</b>
                             at the New York Conservatory of Dramatic
@@ -641,7 +548,7 @@
                     </div>
                 </div>
                 <div class="achievements-content">
-                    <div class="achievements-pane" id="public_speaking-content">
+                    <div class="achievements-pane" id="public_speaking-content" style="display: none;">
                         <h4 class="lead-lg">National Champion</h4>
                         <h6 class="quote-author alt-title">2015</h6>
                         <p class="lead-achievements">
@@ -653,7 +560,7 @@
                     </div>
                 </div>
                 <div class="achievements-content">
-                    <div class="achievements-pane" id="leadership-content">
+                    <div class="achievements-pane" id="leadership-content" style="display: none;">
                         <h4 class="lead-lg">Representative Council</h4>
                         <h6 class="quote-author alt-title">2012 - 2015</h6>
                         <p class="lead-achievements">
@@ -855,14 +762,20 @@
 
     <script>
         $(document).ready(function () {
-            $('a[href="#secondary"]').click(function () {
+            var $eduTabLinks = $('#education .pill-tab-list a[role="tab"]');
+            $('a[href="#secondary"]').on('click', function (e) {
+                e.preventDefault();
                 $('#secondary-content').slideDown('slow');
                 $('#tertiary-content').slideUp('fast');
+                $eduTabLinks.removeClass('active').attr('aria-selected', 'false');
+                $(this).addClass('active').attr('aria-selected', 'true');
             });
-
-            $('a[href="#tertiary"]').click(function () {
+            $('a[href="#tertiary"]').on('click', function (e) {
+                e.preventDefault();
                 $('#secondary-content').slideUp('fast');
                 $('#tertiary-content').slideDown('slow');
+                $eduTabLinks.removeClass('active').attr('aria-selected', 'false');
+                $(this).addClass('active').attr('aria-selected', 'true');
             });
         });
     </script>

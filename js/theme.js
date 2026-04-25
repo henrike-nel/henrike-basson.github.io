@@ -74,8 +74,8 @@ $(function () {
     // Intro Height
     // ----------------------------------------------------------------
     function int_introHeight() {
-        var windiwHeight = $(window).height();
-        $('.js-fullscreen-height').css('height', windiwHeight);
+        var windowHeight = $(window).height();
+        $('.js-fullscreen-height').css('height', windowHeight);
     };
 
 

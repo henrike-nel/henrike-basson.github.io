@@ -20,6 +20,97 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <script src="js/main.js" type="text/javascript"></script>
 
+    <!-- Inline styles for the tech-stack grid and project cards -->
+    <style>
+        .tech-group { margin-bottom: 30px; }
+        .tech-group h6 {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #836E6D;
+            margin-bottom: 14px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .tech-pill {
+            display: inline-block;
+            padding: 6px 14px;
+            margin: 4px 6px 4px 0;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #333;
+            background: #fff;
+            transition: all 0.2s ease;
+        }
+        .tech-pill:hover {
+            border-color: #836E6D;
+            color: #836E6D;
+        }
+        .tech-pill.primary {
+            background: #222;
+            color: #fff;
+            border-color: #222;
+        }
+        .ai-callout {
+            background: linear-gradient(135deg, #f8f6f3 0%, #ede7e1 100%);
+            border-left: 4px solid #836E6D;
+            padding: 25px 30px;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+        .ai-callout h5 {
+            color: #222;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+        }
+        .ai-callout p {
+            margin-bottom: 0;
+            color: #555;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .project-card {
+            padding: 28px 30px;
+            margin-bottom: 25px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+            border-left: 5px solid #836E6D;
+            transition: all 0.2s ease;
+            background: #fff;
+        }
+        .project-card:hover {
+            box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.08);
+        }
+        .project-card .project-period {
+            background: #836E6D;
+            color: #fff;
+            padding: 4px 10px;
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .project-card h4 {
+            margin-bottom: 12px;
+            color: #222;
+        }
+        .project-card .project-desc {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            font-size: 15px;
+        }
+        .project-card .project-tech .tech-pill {
+            font-size: 11px;
+            padding: 3px 10px;
+            margin: 3px 4px 3px 0;
+        }
+    </style>
+
 </head>
 
 <body class="wow-animate">
@@ -40,7 +131,7 @@
                         <a href="#experience">Experience</a>
                     </li>
                     <li>
-                        <a href="shop.html" onclick="location.href='shop.html'">Shop</a>
+                        <a href="#projects">Projects</a>
                     </li>
                     <li>
                         <a href="#contact-me">Contact</a>
@@ -58,7 +149,7 @@
                         <h1 class="intro-title mb-50">
                             <span class="text-light">Hello, I am</span>
                             <br>
-                            <span class="text-rotate">Henrike, a Software Developer, a Passionate Designer, an
+                            <span class="text-rotate">Henrike, a Software Engineer, a Passionate Designer, an
                                 Entrepreneur
                             </span>
                         </h1>
@@ -76,39 +167,24 @@
             <h1 class="tab-heading">About Me</h1>
             <img class="blog-post" src="img/photos/01.jpg" alt="img/photos/03.jpg">
             <p class="lead-about">
-                I am currently 25 years of age, spending most of my days as a Software Engineer at <a
-                    href="https://bash.com/"> Bash.</a>
-                <br>
-                <br>
-
+                I am a Software Engineer at <a href="https://bash.com/">Bash</a>, building cloud-native,
+                event-driven backend services in Go. I currently work in the order management team using
+                Temporal for workflow orchestration, Kafka for event streaming, and Kubernetes for deployment.
+                <br><br>
                 I graduated from Stellenbosch University in 2020 with a BSc Mathematical Sciences degree where I
                 majored in both
-                <b>
-                    Computer
-                    Science
-                </b>
+                <b>Computer Science</b>
                 and
-                <b>Genetics</b>
-                <br>
-                <br>
-
+                <b>Genetics</b>.
+                <br><br>
                 I know that these are two very diverse and different fields, but that is also
-                how I would describe
-                my personality. I am equally “left” and “right-brained”. I reason logically and think
-                analytically
-                but intuitively and creatively. I am an obsessive planner, detail-oriented and passionate about
-                problem-solving and design.
-
-                <br>
-                <br>
-                That is why I am currently employed as a <b>full-stack</b> software engineer.
-                Full-stack allows me to write clean code for the front and back-end of software as well as be
-                involved in the designing of user interfaces.
-                <br>
-                <br>
-                I thus get to quench my desire for aesthetically pleasing designs in addition to working with logic
-                and databases.
-
+                how I would describe my personality. I am equally &ldquo;left&rdquo; and &ldquo;right-brained&rdquo;.
+                I reason logically and think analytically but intuitively and creatively. I am an obsessive planner,
+                detail-oriented and passionate about problem-solving and design.
+                <br><br>
+                Since May 2025 I have made <b>AI</b> a core part of how I work &mdash; using Claude, Claude Code, and
+                related agentic tooling to accelerate implementation planning, assist with debugging and overall helping me ship code faster. It has changed
+                the way I approach engineering problems and is a meaningful part of what I bring to a team today.
             </p>
             <form method="get" action="Henrike_Nel_CV.pdf">
                 <button class="btn btn-color btn-md mt-20" type="submit">Download CV</button>
@@ -180,56 +256,104 @@
         <div class="page-triangle white-bg"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <h1 class="tab-heading">My programming skills.</h1>
-                    <div class="p-b-30"></div>
-                    <p class="prog-skills">
-                        During my time at university, I have been exposed to programming languages such as: <b>
-                            Java, C,
-                            Assembly, HTML, CSS, SQL, Javascript, TypeScript
-                        </b>
-                        and
-                        <b>Python</b>
-                        .
+                <div class="col-md-12 text-center">
+                    <h1 class="tab-heading">My Tech Stack</h1>
+                    <p class="prog-skills" style="max-width: 760px; margin: 0 auto 40px;">
+                        Tools, languages, and platforms I use day-to-day. My core focus is cloud-native backend
+                        engineering in Go, with a strong layer of AI-assisted development on top.
                     </p>
-                    <p class="prog-skills">
-                        Here's my self-assessed knowledge rating for various languages: </p>
                 </div>
+            </div>
+
+            <div class="row">
                 <div class="col-md-6">
-                    <div data-percent="80%" class="skillbar">
-                        <h6 class="skillbar-title alt-title">HTML & CSS</h6>
-                        <div class="skill-bar-percent">80%</div>
-                        <div class="skillbar-bar">
-                            <div class="skillbar-bar-child"></div>
-                        </div>
+                    <div class="tech-group">
+                        <h6>Languages</h6>
+                        <span class="tech-pill primary">Go</span>
+                        <span class="tech-pill">TypeScript</span>
+                        <span class="tech-pill">JavaScript</span>
+                        <span class="tech-pill">Python</span>
+                        <span class="tech-pill">SQL</span>
+                        <span class="tech-pill">HTML / CSS</span>
+                        <span class="tech-pill">C#</span>
+                        <span class="tech-pill">Java</span>
+                        <span class="tech-pill">C</span>
                     </div>
-                    <div data-percent="80%" class="skillbar">
-                        <h6 class="skillbar-title alt-title">Java</h6>
-                        <div class="skill-bar-percent">60%</div>
-                        <div class="skillbar-bar">
-                            <div class="skillbar-bar-child"></div>
-                        </div>
+
+                    <div class="tech-group">
+                        <h6>Backend &amp; Architecture</h6>
+                        <span class="tech-pill primary">Temporal</span>
+                        <span class="tech-pill primary">Apache Kafka</span>
+                        <span class="tech-pill">PostgreSQL</span>
+                        <span class="tech-pill">GORM</span>
+                        <span class="tech-pill">gRPC</span>
+                        <span class="tech-pill">REST APIs</span>
+                        <span class="tech-pill">Microservices</span>
+                        <span class="tech-pill">Event-driven design</span>
                     </div>
-                    <div data-percent="65%" class="skillbar">
-                        <h6 class="skillbar-title alt-title">C</h6>
-                        <div class="skill-bar-percent">65%</div>
-                        <div class="skillbar-bar">
-                            <div class="skillbar-bar-child"></div>
-                        </div>
+
+                    <div class="tech-group">
+                        <h6>Frontend &amp; Templating</h6>
+                        <span class="tech-pill">React</span>
+                        <span class="tech-pill">.NET / C#</span>
+                        <span class="tech-pill">HTML5</span>
+                        <span class="tech-pill">CSS3 / Bootstrap</span>
+                        <span class="tech-pill">SendGrid</span>
+                        <span class="tech-pill">Handlebars</span>
+                        <span class="tech-pill">Figma</span>
                     </div>
-                    <div data-percent="75%" class="skillbar">
-                        <h6 class="skillbar-title alt-title">C#</h6>
-                        <div class="skill-bar-percent">75%</div>
-                        <div class="skillbar-bar">
-                            <div class="skillbar-bar-child"></div>
-                        </div>
+
+                    <div class="tech-group">
+                        <h6>Internal Tooling</h6>
+                        <span class="tech-pill primary">Retool</span>
                     </div>
-                    <div data-percent="80%" class="skillbar">
-                        <h6 class="skillbar-title alt-title">Python</h6>
-                        <div class="skill-bar-percent">80%</div>
-                        <div class="skillbar-bar">
-                            <div class="skillbar-bar-child"></div>
-                        </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="tech-group">
+                        <h6>Cloud, Infra &amp; Observability</h6>
+                        <span class="tech-pill primary">Kubernetes</span>
+                        <span class="tech-pill primary">Docker</span>
+                        <span class="tech-pill">AWS (Secrets Manager, S3, IAM)</span>
+                        <span class="tech-pill">Confluent Cloud</span>
+                        <span class="tech-pill">Azure DevOps Pipelines</span>                       
+                        <span class="tech-pill">Sentry</span>
+                        <span class="tech-pill">Prometheus</span>
+                        <span class="tech-pill">Grafana</span>
+                    </div>
+
+                    <div class="tech-group">
+                        <h6>AI &amp; Agentic Tooling</h6>
+                        <span class="tech-pill primary">Claude</span>
+                        <span class="tech-pill primary">Claude Code</span>
+                        <span class="tech-pill">ChatGPT</span>
+                        <span class="tech-pill">Cursor</span>
+                        <span class="tech-pill">GitHub Copilot</span>
+                    </div>
+
+                    <div class="tech-group">
+                        <h6>Tooling &amp; Process</h6>
+                        <span class="tech-pill">Git</span>
+                        <span class="tech-pill">GitHub</span>
+                        <span class="tech-pill">Linear</span>
+                        <span class="tech-pill">Retool</span>
+                        <span class="tech-pill">Slack</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ai-callout">
+                        <h5>AI as a daily collaborator &mdash; since May 2025</h5>
+                        <p>
+                            I have spent close to a year intentionally rebuilding my workflow around AI. I use
+                            Claude and Claude Code as a thinking partner for architecture, debugging, code review,
+                            and documentation; I write specs and ADRs in tandem with the model; and I lean on
+                            agentic tooling to scaffold work, mine repos for context, and ship faster. This is not
+                            a side curiosity &mdash; it is how I work, and it materially raises the quality and
+                            speed of what I deliver.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -320,6 +444,138 @@
             </div>
         </div>
     </section>
+
+    <section id="projects" class="section-padding gray-bg">
+        <div class="container text-center">
+            <h1 class="tab-heading">Featured Projects</h1>
+            <p class="prog-skills" style="max-width: 760px; margin: 0 auto 40px;">
+                A selection of work I have led or shipped at Bash. All in Go, on a cloud-native event-driven
+                platform built on Temporal, Kafka, PostgreSQL and Kubernetes.
+            </p>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="project-card">
+                        <span class="project-period">2026 &middot; current</span>
+                        <h4 class="alt-title">Return Management Service (RMS) &mdash; Engineering Project Lead</h4>
+                        <p class="project-desc">
+                            Serving as <b>Engineering Project Lead</b> for the new <b>Return Management Service (RMS)</b> at
+                            Bash &mdash; a cross-team initiative spanning the supply chain domain. RMS owns the complete returns lifecycle:
+                            creation, courier collection, evaluation center hand-off, refund processing, and customer communications.
+                            <br><br>
+                            I drive solution design, establish service contracts and integration timelines across teams,
+                            and lead architectural decision-making for the platform.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill primary">Engineering Project Lead</span>
+                            <span class="tech-pill">Solution design</span>
+                            <span class="tech-pill">Domain modelling</span>
+                            <span class="tech-pill">Go</span>
+                            <span class="tech-pill">Temporal</span>
+                            <span class="tech-pill">PostgreSQL</span>
+                            <span class="tech-pill">GORM</span>
+                            <span class="tech-pill">Kafka</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <span class="project-period">2025</span>
+                        <h4 class="alt-title">Logistics Integration (Last-Mile API)</h4>
+                        <p class="project-desc">
+                            Led integration with our third-party Logistics API for last-mile delivery coordination.
+                            Designed the event handler architecture, implemented a type-safe domain model, and built
+                            production rollout tooling with event correction capabilities for operational resilience.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill">Go</span>
+                            <span class="tech-pill">Kafka</span>
+                            <span class="tech-pill">REST APIs</span>
+                            <span class="tech-pill">Retool</span>
+                            <span class="tech-pill">PostgreSQL</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <span class="project-period">2025</span>
+                        <h4 class="alt-title">Warehouse Pack-&amp;-Ship Migration to Temporal</h4>
+                        <p class="project-desc">
+                            Migrated existing pack-and-ship workflows to Temporal for improved durability and observability.
+                            Designed the parcel state schema, implemented signal-based event handlers,
+                            integrated with warehouse logistics APIs, and orchestrated a feature-flagged rollout
+                            enabling parallel execution of legacy and new pipelines during the migration cutover.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill">Go</span>
+                            <span class="tech-pill">Temporal</span>
+                            <span class="tech-pill">Kafka</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+
+                    <div class="project-card">
+                        <span class="project-period">2024</span>
+                        <h4 class="alt-title">Bash Admin &mdash; internal operations app</h4>
+                        <p class="project-desc">
+                            Designed, built, and shipped <b>Bash Admin</b> &mdash; the company-wide internal operations
+                            platform consolidating orders, customers, returns, parcels, payments, and shipping into a unified interface.
+                            Integrated multiple database queries, internal microservices, and third-party APIs into a single Retool application.
+                            Not only did I design the UI on my own, I consulted users (like Customer Support agents) to make sure the app is practical and supports their day-to-day operational needs while maintaining brand consistency throughout the UI.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill primary">Retool</span>
+                            <span class="tech-pill">JavaScript</span>
+                            <span class="tech-pill">PostgreSQL</span>
+                            <span class="tech-pill">REST APIs</span>
+                            <span class="tech-pill">UI/UX design</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <span class="project-period">2024 &middot; 2025</span>
+                        <h4 class="alt-title">Customer Communications Makeover</h4>
+                        <p class="project-desc">
+                            Migrated and modernized transactional customer email templates.
+                            Translated Figma designs into responsive <b>HTML/CSS templates</b> in <b>SendGrid</b>,
+                            implementing <b>Handlebars</b> templating with structured JSON payloads for dynamic content.
+                            On the backend, built the payload generation service, implemented comprehensive audit logging
+                            and delivered operational tooling for surfacing when which comms were sent, enabling easier debugging.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill">Go</span>
+                            <span class="tech-pill">SendGrid</span>
+                            <span class="tech-pill">HTML / CSS</span>
+                            <span class="tech-pill">Figma</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <span class="project-period">2024 &middot; 2025</span>
+                        <h4 class="alt-title">Platform Reliability &amp; Tooling</h4>
+                        <p class="project-desc">
+                            Delivered cross-cutting reliability and operational tooling to improve platform observability, auditability, and incident recovery.
+                            Integrated Sentry across microservices for error tracking, implemented audit logging throughout operational tooling,
+                            and built manual intervention endpoints for manual error resolution. Created Retool-based medic tooling
+                            enabling engineers to <b>edit and replay problematic Kafka messages with full audit trails</b> in the case of incidents,
+                            significantly reducing recovery time while maintaining accountability and reporting capabilities.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill">Go</span>
+                            <span class="tech-pill">Sentry</span>
+                            <span class="tech-pill">Notion</span>
+                            <span class="tech-pill">Retool</span>
+                            <span class="tech-pill">MSSQL</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <section id="achievements" class="section-padding">
         <div class="container text-center">
@@ -473,8 +729,7 @@
                         <div class="alt-icon-top alt-icon-color">
                             <em class="icon-envelope"></em>
                         </div>
-                        <p class="large">henrike.nel@icloud.com</p>
-                        <p class="large">henrike.nel@gmail.com</p>
+                        <p class="large">henrike.basson@gmail.com</p>
                     </div>
                 </div>
             </div>
@@ -563,7 +818,7 @@
                 </li>
             </ul>
             <p class="copyright">
-                <a class="copy-link scroll-top" href="">&copy; henrike 2023</a>
+                <a class="copy-link scroll-top" href="">&copy; henrike 2026</a>
                 <br>
                 All Rights Reserved
             </p>

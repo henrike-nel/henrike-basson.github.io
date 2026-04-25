@@ -10,6 +10,7 @@
     --color-accent: #44403c;
     --color-accent-soft: rgba(68, 64, 60, 0.12);
     --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+    --font-heading: "Outfit", "DM Sans", system-ui, sans-serif;
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
@@ -54,6 +55,7 @@ body {
 
 body.wow-animate {
     overflow-x: hidden;
+    overflow-y: visible;
 }
 
 section[id] {
@@ -96,6 +98,8 @@ section[id] {
     top: 0;
     left: 0;
     right: 0;
+    z-index: 2000;
+    min-height: var(--header-h);
     height: var(--header-h);
     text-align: center;
     background: transparent;
@@ -149,6 +153,11 @@ section[id] {
 }
 
 @media (max-width: 1024px) {
+    /* Let the bar grow to fit the open menu; fixed height was clipping the dropdown */
+    .header {
+        height: auto;
+    }
+
     .header-inner-minimal {
         flex-wrap: wrap;
         justify-content: flex-end;
@@ -163,7 +172,14 @@ section[id] {
         background: rgba(28, 25, 23, 0.97) !important;
         border-radius: var(--radius-sm);
         margin-top: 8px;
-        overflow: hidden;
+    }
+
+    /* Theme JS sets max-height; keep vertical scroll if the list is tall */
+    .header-inner-minimal .nav-menu.active {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        /* Safety: theme used to set max-height from full header height and starve the panel */
+        max-height: min(85vh, 36rem) !important;
     }
 
     .header-inner-minimal .nav-menu ul.nav-menu-inner > li > a {
@@ -282,10 +298,10 @@ section[id] {
 }
 
 .tab-heading {
-    font-family: var(--font-sans);
+    font-family: var(--font-heading);
     font-size: clamp(1.35rem, 3vw, 1.65rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-weight: 400;
+    letter-spacing: -0.04em;
     color: var(--color-text);
     margin-bottom: 0.5rem;
 }
@@ -322,28 +338,37 @@ section[id] {
     color: var(--color-text);
 }
 
-/* About */
+/* About — larger photo column so image balances long copy */
 #about .tab-heading.text-center {
     margin-bottom: 0;
 }
 
 .about-split {
     display: grid;
-    gap: clamp(1.5rem, 4vw, 2.5rem);
+    gap: clamp(1.75rem, 4vw, 3rem);
     align-items: start;
     text-align: left;
-    margin-top: 2rem;
+    margin-top: 2.25rem;
 }
 
 .about-copy .lead-about {
     max-width: none;
     margin-bottom: 0;
+    font-weight: 400;
+    color: var(--color-text-muted);
 }
 
 @media (min-width: 768px) {
     .about-split {
-        grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
-        align-items: center;
+        /* ~40% image / 60% copy — was 220px max, which felt tiny next to the text */
+        grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1.25fr);
+        align-items: start;
+    }
+}
+
+@media (min-width: 1100px) {
+    .about-split {
+        grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
     }
 }
 
@@ -351,7 +376,7 @@ section[id] {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     width: 100%;
-    max-width: 280px;
+    max-width: min(22rem, 100%);
     height: auto;
     object-fit: cover;
     aspect-ratio: 3 / 4;
@@ -360,8 +385,9 @@ section[id] {
 
 @media (min-width: 768px) {
     .about-photo {
-        justify-self: start;
-        max-width: 100%;
+        justify-self: stretch;
+        max-width: none;
+        width: 100%;
     }
 }
 
@@ -387,56 +413,133 @@ section[id] {
     margin-top: 1.5rem;
 }
 
-/* Education tabs */
-.icon-tab-nav.tabs {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    padding: 0;
-    margin: 1.5rem auto 0;
+/* Education + Achievements — pill tab lists (overrides theme 200px li + 44px icon on `a`) */
+#education .pill-tab-list,
+#achievements .pill-tab-list {
     list-style: none;
+    margin: 1.5rem auto 0;
+    padding: 0;
+    display: grid !important;
+    gap: 0.75rem;
+    max-width: 100%;
+    width: 100%;
     border: none;
+    /* Theme clearfix: ::before/::after on ul become grid items and break column math */
+    justify-items: stretch;
+    align-items: stretch;
 }
 
-.icon-tab-nav.tabs li {
-    margin: 0;
+#education .pill-tab-list::before,
+#education .pill-tab-list::after,
+#achievements .pill-tab-list::before,
+#achievements .pill-tab-list::after {
+    content: none !important;
+    display: none !important;
 }
 
-.icon-tab-nav.tabs a {
-    display: block;
-    padding: 0.55rem 1.1rem;
-    border-radius: 999px;
-    border: 1px solid var(--color-border);
-    background: var(--color-bg-elevated);
-    text-decoration: none;
-    transition: border-color 0.2s ease, background 0.2s ease;
+#education .pill-tab-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    max-width: 36rem;
 }
 
-.icon-tab-nav.tabs a.active,
-.icon-tab-nav.tabs a:hover {
-    border-color: var(--color-text);
-    background: var(--color-text);
-    color: #fff;
+#achievements .pill-tab-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    max-width: 42rem;
 }
 
-.icon-tab-nav.tabs a.active .icon-tab-nav-title,
-.icon-tab-nav.tabs a:hover .icon-tab-nav-title {
-    color: inherit !important;
+@media (min-width: 640px) {
+    #achievements .pill-tab-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
 }
 
-.icon-tab-nav-title {
+#education .pill-tab-list > li,
+#achievements .pill-tab-list > li {
+    display: flex !important;
+    width: auto !important;
+    min-width: 0;
     margin: 0 !important;
-    font-size: 0.8rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.04em;
+    padding: 0;
 }
 
-#education .tab-pane,
-#education .container:last-of-type {
+#education .pill-tab-list a,
+#achievements .pill-tab-list a {
+    box-sizing: border-box;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 3.5rem;
+    height: 100%;
+    margin: 0;
+    padding: 0.65rem 0.75rem;
+    /* Kill theme’s 44px “icon” size on the anchor; label text is on the inner span */
+    font-size: 0 !important;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none !important;
+    color: var(--color-text);
+    background: var(--color-bg-elevated) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: 9999px;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+    /* override theme: ul.icon-tab-nav li a.active */
+    box-shadow: none;
+}
+
+#education .pill-tab-list a:hover,
+#achievements .pill-tab-list a:hover {
+    border-color: var(--color-text) !important;
+    color: var(--color-text);
+    background: var(--color-bg-muted) !important;
+}
+
+#education .pill-tab-list a.active,
+#achievements .pill-tab-list a.active {
+    border-color: var(--color-text) !important;
+    background: var(--color-text) !important;
+    color: #fafaf9 !important;
+}
+
+#education .pill-tab-list a:focus-visible,
+#achievements .pill-tab-list a:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+}
+
+#education .pill-tab-list .icon-tab-nav-title,
+#achievements .pill-tab-list .icon-tab-nav-title {
+    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.6875rem !important; /* 11px */
+    font-weight: 500 !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase;
+    color: inherit !important;
+    font-style: normal;
+    white-space: normal;
+}
+
+#education .pill-tab-list a.active .icon-tab-nav-title,
+#achievements .pill-tab-list a.active .icon-tab-nav-title {
+    color: #fafaf9 !important;
+}
+
+/* Education body: center column, left-aligned type for reading */
+#education .education-content {
     max-width: 42rem;
     margin-left: auto;
     margin-right: auto;
+    text-align: left;
+}
+
+#education .tab-pane h4,
+#education .tab-pane p,
+#education .tab-pane h6 {
+    text-align: left;
 }
 
 /* Skills / tech strip */
@@ -474,71 +577,75 @@ section[id] {
     border-color: var(--color-text);
 }
 
-/* Experience cards */
-.history-box {
+/* Experience + Projects — shared card UI (section background differs) */
+#experience .history-box,
+#projects .project-card {
     background: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: 1.35rem 1.5rem;
     box-shadow: var(--shadow-soft);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    transition: box-shadow 0.2s ease;
 }
 
-.history-year {
-    font-size: 11px !important;
-    letter-spacing: 0.12em;
-    color: var(--color-text-muted) !important;
-    font-weight: 600 !important;
-}
-
-.history-title {
-    color: var(--color-text) !important;
-    font-size: 1.1rem !important;
-    font-weight: 600 !important;
-    margin-top: 0.35rem;
-}
-
-/* Project cards */
-.project-card {
-    border: 1px solid var(--color-border);
-    border-left: 3px solid var(--color-accent);
-    border-radius: var(--radius-md);
-    background: var(--color-bg-elevated);
-    box-shadow: var(--shadow-soft);
-}
-
-.project-card:hover {
+#experience .history-box:hover,
+#projects .project-card:hover {
     box-shadow: var(--shadow-card);
 }
 
-.project-period {
-    background: var(--color-text) !important;
-    border-radius: 999px;
-    letter-spacing: 0.1em;
-    font-size: 10px;
+/* Period chip — matches across both sections */
+#experience .history-year,
+#projects .project-period {
+    display: inline-block;
+    margin: 0 0 0.65rem 0;
     padding: 0.35rem 0.75rem;
+    background: var(--color-text) !important;
+    color: #fafaf9 !important;
+    border-radius: 999px;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    text-transform: uppercase;
 }
 
-.project-card h4 {
-    color: var(--color-text);
+/* Titles + body */
+#experience .history-title,
+#projects .project-card h4 {
+    color: var(--color-text) !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    line-height: 1.35;
+    margin: 0 0 0.75rem 0;
 }
 
-.project-desc {
+#experience .history-content,
+#projects .project-desc {
     color: var(--color-text-muted);
+    line-height: 1.7;
+    font-size: 1rem;
+    margin: 0;
+    max-width: none;
 }
 
 /* Achievements */
-#achievements .icon-tab-nav.tabs {
-    margin-bottom: 0.5rem;
+#achievements .achievements-content.mt-45 {
+    text-align: left;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#achievements .icon-tab-nav i {
-    display: none;
+#achievements .achievements-content.mt-45 > .achievements-content {
+    text-align: left;
 }
 
-.achievements-pane {
+#achievements .achievements-pane {
     max-width: 42rem;
     margin: 0 auto;
     padding: 1.5rem 0;
+    text-align: left;
 }
 
 /* Contact strip */
@@ -630,10 +737,9 @@ section[id] {
     font-size: 0.85rem;
 }
 
-/* AI callout */
+/* AI callout — background from inline; no accent rail */
 .ai-callout {
-    background: var(--color-bg-muted);
-    border-left: 3px solid var(--color-accent);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
 }
 

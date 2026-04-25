@@ -104,10 +104,20 @@ $(function () {
     var mobile_menu_icon = $(".nav-mobile");
     var mobile_menu = $(".nav-menu");
 
-    // Mobile menu max height
+    // Mobile menu max height: never use full .header height — when the menu is open, that
+    // includes the panel and collapses the allowed scroll area to ~0 (only the last item shows).
+    var mobileNavTopBar = 64;
+
     function int_nav_menu_height() {
-        mobile_menu.css("max-height", $(window).height() - $(".header").height() - 20 + "px"), $(window).width() <= 1024 ? $(".header").addClass("mobile-device") : $(window).width() > 1024 && ($(".header").removeClass("mobile-device"));
-    };
+        if ($(window).width() <= 1024) {
+            var h = Math.max(220, $(window).height() - mobileNavTopBar - 24);
+            mobile_menu.css("max-height", h + "px");
+            $(".header").addClass("mobile-device");
+        } else {
+            mobile_menu.css("max-height", "");
+            $(".header").removeClass("mobile-device");
+        }
+    }
 
     // Mobile menu toggle icon
     mobile_menu_icon.click(function () {
@@ -119,6 +129,7 @@ $(function () {
             mobile_menu_icon.removeClass('active');
             mobile_menu.removeClass('active');
         }
+        $(this).attr('aria-expanded', $(this).hasClass('active'));
     });
 
 

@@ -55,14 +55,6 @@ $(document).ready(function () {
 
  */
 $(document).ready(function () {
-    // Mobile: close the drawer after choosing an in-page link
-    $(document).on("click", ".header .singlepage-nav a[href^='#']", function () {
-        if ($(window).width() <= 1024) {
-            $(".nav-mobile").removeClass("active").attr("aria-expanded", "false");
-            $(".nav-menu").removeClass("active");
-        }
-    });
-
     var $achieveTabLinks = $('#achievements .pill-tab-list a[role="tab"]');
     function setActiveAchieveTab($link) {
         $achieveTabLinks.removeClass('active').attr('aria-selected', 'false');

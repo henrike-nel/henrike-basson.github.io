@@ -99,39 +99,14 @@ $(function () {
 
 
     // ----------------------------------------------------------------
-    // Navigation Menu panel
+    // Navigation: always-visible in-page bar (no hamburger / no drawer)
     // ----------------------------------------------------------------
-    var mobile_menu_icon = $(".nav-mobile");
     var mobile_menu = $(".nav-menu");
 
-    // Mobile menu max height: never use full .header height — when the menu is open, that
-    // includes the panel and collapses the allowed scroll area to ~0 (only the last item shows).
-    var mobileNavTopBar = 64;
-
     function int_nav_menu_height() {
-        if ($(window).width() <= 1024) {
-            var h = Math.max(220, $(window).height() - mobileNavTopBar - 24);
-            mobile_menu.css("max-height", h + "px");
-            $(".header").addClass("mobile-device");
-        } else {
-            mobile_menu.css("max-height", "");
-            $(".header").removeClass("mobile-device");
-        }
+        mobile_menu.css("max-height", "");
+        $(".header").removeClass("mobile-device");
     }
-
-    // Mobile menu toggle icon
-    mobile_menu_icon.click(function () {
-        if (!($(this).hasClass('active'))) {
-            mobile_menu_icon.addClass('active');
-            mobile_menu.addClass('active');
-        }
-        else if ($(this).hasClass('active')) {
-            mobile_menu_icon.removeClass('active');
-            mobile_menu.removeClass('active');
-        }
-        $(this).attr('aria-expanded', $(this).hasClass('active'));
-    });
-
 
     // Dropdown Sub menu
     var menu_Sub = $(".menu-has-sub");
@@ -553,12 +528,6 @@ $(function () {
         speed: 1500,
         updateHash: true,
         beforeStart: function () {
-            // Navigation Menu Close
-            if (mobile_menu_icon.hasClass('active')) {
-                mobile_menu_icon.removeClass('active');
-                mobile_menu.removeClass('active');
-            };
-
             // Overlay Menu Close
             if (overlay_menu_btn.hasClass('active')) {
                 overlay_menu_btn.removeClass('active');

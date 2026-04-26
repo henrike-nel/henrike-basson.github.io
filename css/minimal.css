@@ -5,7 +5,7 @@
     --palette-ivory: #f8f7f5;
     --palette-sand: #ffffff;
     --palette-slate: #000000;
-    --palette-lavender: #382d3f;
+    --palette-lavender: #4d4253;
     --palette-moss: #6d7469;
     --palette-sage: #b4aeb6;
 
@@ -34,6 +34,8 @@
     --shadow-card: 0 4px 22px rgba(54, 72, 60, 0.07);
     --content-max: 68rem;
     --header-h: 56px;
+    /* At a glance cards: tint from palette lavender */
+    --at-a-glance-bg: color-mix(in srgb, var(--palette-lavender) 10%, #ffffff 90%);
 }
 
 /* Legacy section classes in HTML → same palette (sand banding) */
@@ -83,21 +85,6 @@ body.wow-animate {
 
 section[id] {
     scroll-margin-top: calc(var(--header-h) + 12px);
-}
-
-/* Mobile menu trigger: theme styles expect .nav-bar-icon > span */
-.nav-mobile.nav-bar-icon {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font: inherit;
-    color: inherit;
-}
-
-.nav-mobile.nav-bar-icon:focus-visible {
-    outline: 2px solid currentColor;
-    outline-offset: 4px;
 }
 
 #page-wraper {
@@ -175,64 +162,59 @@ section[id] {
     text-transform: uppercase;
 }
 
+/* No hamburger: hide any legacy theme trigger; nav stays inline at all widths */
+.nav-bar-icon,
+.nav-mobile,
+.header .nav-bar-icon,
+.header-fixed .nav-bar-icon,
+.nav-mobile.nav-bar-icon {
+    display: none !important;
+}
+
 @media (max-width: 1024px) {
-    /* Let the bar grow to fit the open menu; fixed height was clipping the dropdown */
     .header {
-        height: auto;
+        height: auto !important;
+        min-height: var(--header-h);
     }
 
     .header-inner-minimal {
         flex-wrap: wrap;
-        justify-content: flex-end;
-        align-items: center;
-        padding-top: 0;
-        padding-bottom: 0;
+        justify-content: center;
     }
 
+    .header .nav-menu,
     .header-inner-minimal .nav-menu {
-        order: 2;
-        flex: 1 1 100%;
-        background: var(--color-accent-dark) !important;
-        border-radius: var(--radius-sm);
-        margin-top: 8px;
+        display: block !important;
+        position: static !important;
+        float: none !important;
+        width: 100% !important;
+        max-height: none !important;
+        overflow: visible !important;
+        background: transparent !important;
     }
 
-    /* Theme JS sets max-height; keep vertical scroll if the list is tall */
-    .header-inner-minimal .nav-menu.active {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        /* Safety: theme used to set max-height from full header height and starve the panel */
-        max-height: min(85vh, 36rem) !important;
+    .header .nav-menu ul.nav-menu-inner,
+    .header-inner-minimal .nav-menu ul.nav-menu-inner {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 0.1rem 0.25rem;
+    }
+
+    .header .nav-menu ul.nav-menu-inner li,
+    .header-inner-minimal .nav-menu ul.nav-menu-inner li {
+        display: inline-block !important;
+        width: auto !important;
     }
 
     .header-inner-minimal .nav-menu ul.nav-menu-inner > li > a {
-        border-top-color: color-mix(in srgb, var(--color-on-dark) 12%, transparent) !important;
-        color: color-mix(in srgb, var(--color-on-dark) 90%, transparent);
+        border-top: none !important;
     }
 
-    .header-inner-minimal .nav-mobile {
-        order: 1;
-        margin-left: auto;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    .header.header-prepare .nav-bar-icon > span,
-    .header.header-prepare .nav-bar-icon > span::before,
-    .header.header-prepare .nav-bar-icon > span::after,
-    .header.header-fixed .nav-bar-icon > span,
-    .header.header-fixed .nav-bar-icon > span::before,
-    .header.header-fixed .nav-bar-icon > span::after,
-    .nav-bar-icon > span,
-    .nav-bar-icon > span::before,
-    .nav-bar-icon > span::after {
-        background-color: var(--palette-slate) !important;
-    }
-
-    .header:not(.header-prepare):not(.header-fixed) .nav-bar-icon > span,
-    .header:not(.header-prepare):not(.header-fixed) .nav-bar-icon > span::before,
-    .header:not(.header-prepare):not(.header-fixed) .nav-bar-icon > span::after {
-        background-color: var(--color-on-dark) !important;
+    .header.header-prepare .nav-menu ul.nav-menu-inner > li > a,
+    .header.header-fixed .nav-menu ul.nav-menu-inner > li > a {
+        padding: 0.4rem 0.45rem !important;
     }
 }
 
@@ -438,10 +420,10 @@ section[id] {
     gap: 0.8rem;
     align-items: start;
     margin: 0;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--palette-lavender);
     border-radius: var(--radius-md);
-    background: var(--color-bg-elevated);
-    box-shadow: var(--shadow-soft);
+    background: var(--at-a-glance-bg);
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--palette-lavender) 12%, transparent);
     padding: 0.7rem 0.9rem 0.7rem 0.65rem;
 }
 
@@ -453,9 +435,9 @@ section[id] {
     height: 2.45rem;
     border-radius: 50%;
     flex-shrink: 0;
-    background: color-mix(in srgb, var(--color-bg) 65%, var(--palette-sand));
-    border: 1px solid var(--color-border);
-    color: var(--color-accent-dark);
+    background: color-mix(in srgb, var(--palette-lavender) 16%, #ffffff 84%);
+    border: 1px solid color-mix(in srgb, var(--palette-lavender) 45%, #ffffff 55%);
+    color: var(--palette-lavender);
     font-size: 1.15rem;
     line-height: 1;
     margin-top: 0.1rem;
@@ -684,6 +666,10 @@ section[id] {
 }
 
 /* Skills / tech strip */
+#skills p.prog-skills {
+    color: #111 !important;
+}
+
 #skills .tech-group {
     margin-bottom: 2.75rem;
     margin-top: 1.75rem;
@@ -731,6 +717,18 @@ section[id] {
     border-color: var(--color-accent-dark);
 }
 
+#skills .tech-pill.primary {
+    background: var(--palette-lavender);
+    color: var(--color-on-dark);
+    border-color: var(--palette-lavender);
+}
+
+#skills .tech-pill.primary:hover {
+    background: color-mix(in srgb, var(--palette-lavender) 90%, #000);
+    border-color: color-mix(in srgb, var(--palette-lavender) 90%, #000);
+    color: var(--color-on-dark);
+}
+
 /* Experience + Projects — shared card UI (section background differs) */
 #experience .history-box,
 #projects .project-card {
@@ -774,13 +772,28 @@ section[id] {
     margin: 0 0 0.75rem 0;
 }
 
-/* Experience cards + project cards: same body copy (beats theme’s thin Roboto on .lead-about) */
-#projects .project-card .project-desc,
+/* Featured Projects — intro + card body (near-black, match Experience) */
+#projects p.prog-skills {
+    color: #111 !important;
+}
+
+/* Project cards: body copy */
+#projects .project-card .project-desc {
+    font-family: var(--font-sans) !important;
+    font-weight: 400 !important;
+    color: #111 !important;
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+    margin: 0;
+    max-width: none;
+}
+
+/* Experience cards: same typography, near-black for readability */
 #experience .history-box p.lead-about,
 #experience .history-box p.lead-about.history-content {
     font-family: var(--font-sans) !important;
     font-weight: 400 !important;
-    color: var(--color-text-muted) !important;
+    color: #111 !important;
     font-size: 1rem !important;
     line-height: 1.7 !important;
     margin: 0;
@@ -819,7 +832,7 @@ section[id] {
     text-align: left;
     font-family: var(--font-sans) !important;
     font-weight: 400 !important;
-    color: var(--color-text-muted) !important;
+    color: #111 !important;
     font-size: 1rem !important;
     line-height: 1.7 !important;
 }

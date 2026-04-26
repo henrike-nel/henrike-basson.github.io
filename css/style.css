@@ -482,7 +482,7 @@ p.dark, p.small.dark, p.large.dark, p.lead.dark, p .dark, .dark {
 }
 
 p.color p.small.color, p.large.color, p.lead.color, p .color, .color {
-    color: #a59a80;
+    color: #bcb5a5;
 }
 
 .yellow {
@@ -2436,7 +2436,7 @@ header.header-light .nav-bar-icon>span, header.header-light .nav-bar-icon>span:b
 }
 
 .overlay-menu-nav li:hover a {
-    color: #17a697;
+    color: #2f7c60;
 }
 
 .overlay-menu-close {

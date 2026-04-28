@@ -540,7 +540,7 @@ section[id] {
     max-width: none;
     margin-bottom: 0;
     font-weight: 400;
-    color: var(--color-text-muted);
+    color: #111;
 }
 
 @media (min-width: 768px) {

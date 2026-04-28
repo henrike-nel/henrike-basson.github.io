@@ -2123,11 +2123,11 @@ form label.error {
 .nav-menu ul.nav-menu-inner li a {
     font-family: inherit;
     display: block;
-    font-size: 11px;
+    font-size: 9px;
     line-height: 1;
     font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 1.6px;
+    letter-spacing: 1.2px;
     transition: all 0.27s cubic-bezier(0, 0, 0.58, 1) 0s;
     -o-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1) 0s;
     -moz-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1) 0s;

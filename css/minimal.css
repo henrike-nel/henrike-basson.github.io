@@ -224,6 +224,7 @@ section[id] {
     min-height: 100dvh;
     display: flex;
     align-items: center;
+    overflow-anchor: none;
 }
 
 #intro .overlay-dark40::before {
@@ -269,6 +270,8 @@ section[id] {
     color: #fff;
     display: block;
     margin-top: 0.35rem;
+    min-height: 2.35em;
+    overflow-anchor: none;
 }
 
 .intro-sub-title {
